@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "backendportfoliooctaviobressan",
+  "private_key_id": "54049cb2f311db7e3732045dc72474ea35d03fec",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDrLJWH7IWm1Fi7\nwGPbfBYC7bVfX/dDazUvPHWldcEn4PyOlcHZcFPi5HtuaG/2scqAjFJBlRegCdyT\nRyyyKnRAAsX9Y6wNmOWEhxWqsRZXVNVldVQ8ThcLaGSOwaq6VjApb1m7P0A4FZaO\npMHt6IHX/Oj+P6o5C8rb1oXpFWC0VUhZwDsdz3CyPzlFD4emh4Ihigwr/BOcXM8L\nXdl8VL+6LXo8lMUEINl5kJc6Cmd/Rjx9NNlF4bcD06PcD3EE6PCRiI+SXQuIEPjR\nt+lcPCODQWiPIcuG+XHOp6Pm8r3TzZewrsE91Wp0DSQiH3LP2ytBxEsSfjCzHUiK\nYO6BYCATAgMBAAECggEAW/eyflZLqgMutDW3l1S+UuTc4fBohO/++3r8Uvlq0QqW\nGbiM91iLJZbOgk3LQ0Eh/QVjAYypkYdpwBq8auxZS9MJ1F7PIP4i+6HMIlVgdEST\nszqf93leX7KyaHVqK7aa3QlToPtKROSEXUInKL+dT3bzMsJ48hgfe7s34P/gMoTL\nfBbGXpWV0J+yrKLOTOMUh8g9ujhn32KwjmcSiZJHsK+ZBEdPK0Etf4hshAjB++6x\nNQjdgVNrosQWjbM5G2xCuOHzevY5G+onU3Qcwm5xMnCAUsv2lRtTok9bMpEAQYwe\n2+gpCv/IheeNzixDEMcE9B8pbopHzpQNjMidu49OaQKBgQD33yg/kccJTFSovdZE\nK41rM7MHPkTjMep+ni2Rq9cINKrgsMH8KN7LDCFQtmLTA6p8oxRSI9uRHLnHdrbY\njbTuh5UTfxSO0e8H/axna4YEVprQBsHtnhCqFJE9l2/ebTiRxFQ67ZFdnTVaSFy+\n2Z/tuHp5B5xU+MRYLpLKm93Z3QKBgQDy4tU/pXHKX7fZWjW6bb+DAgyfmUenkBu2\nfW8UeeQZKUghBiGuRV1HKoVwmh3OT3i82SMwf8dPQ5bJRQjwD1jdYQQIRHNO1QFG\nfDXHDnnGG0NzVPW5KSW+ZB/+Y5tBvms59sql7RcEFQ/JtqjertyFNrNlNXJpPTDL\nCFQA39rarwKBgQC5UJDBvhZFYFjm807PFpSbMkLFxoswJLCBS3ccMpIIY3/hjqTp\nBhFTUtVRh5oo0tPSbQYTRxWvzv8iHiIjkwZTUvBkbB0NjeycV85eX6gJdEo3/uVb\n5lHlJo1Ts/WCILwrVtH2YIjOqWsq/XDBiuijjMmb1NHPQVFh8Cf07EUXzQKBgH7t\nGxOPmc9wBduH0NwDzjjgMUiWCWP/YvwSwKGqsRCVCiR319ICXaR7DBCz+S9/SFEo\nB8OogrdhUsMLWIha/M1zjW/klX10wp3a+x9y6SAlzzHODDsezaKZID8IPnI02EQK\nPAxJweVYPE/lLIpyRrs2wrj5HTjxyTXQvFVYpj3xAoGAUISIs5aIwmQafK/ZDbdg\nO4dbV3HGr1LM+Pgpj0dmBF+cZ3yKdgfRqAChKspM2k8moxwDRw5TAi+MZafgelby\nJz2MDVzwUfWq+rzLlWFFkkOmgpdMhx3QZ0OXJcysEe68FF64dRAgHNO4zjs8rGmw\nUlvNLrIGg/t88WxT9j7wRag=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-egrse@backendportfoliooctaviobressan.iam.gserviceaccount.com",
+  "client_id": "105620276777953527794",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-egrse%40backendportfoliooctaviobressan.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

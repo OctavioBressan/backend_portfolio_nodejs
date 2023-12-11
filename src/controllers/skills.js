@@ -1,15 +1,16 @@
 const skillsRouter = require('express').Router()
 const Skill = require('../models/skill')
 const dataFunctions = require('../utils/dataFunctions')
+const admin = require('../utils/firebase')
 
 dataFunctions.getAll(skillsRouter, Skill)
 
 dataFunctions.getOne(skillsRouter, Skill)
 
-dataFunctions.postWithImage(skillsRouter, Skill)
+dataFunctions.postWithImage(skillsRouter, Skill, admin)
 
-dataFunctions.put(skillsRouter, Skill)
+dataFunctions.putWhiteImage(skillsRouter, Skill, admin)
 
-dataFunctions.deleteOne(skillsRouter, Skill)
+dataFunctions.deleteOneWithImage(skillsRouter, Skill, admin)
 
 module.exports = skillsRouter

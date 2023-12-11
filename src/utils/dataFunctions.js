@@ -1,8 +1,4 @@
 const upload = require('../utils/multer-config')
-const config = require('../utils/config')
-const fs = require('fs');
-const path = require('path')
-
 
 const getAll = (router, model) => {
   router.get('/', async (request, response, next) => {
@@ -11,7 +7,7 @@ const getAll = (router, model) => {
       response.json(requestResult)
     } catch (error){
       next(error)
-    }
+    };
   });  
 };
 
@@ -21,79 +17,113 @@ const getOne = (router, model) => {
       const requestResult = await model.findById(request.params.id)
         response.json(requestResult)  
     } 
-    catch(error){next(error)} 
-  })  
-}
+    catch(error){next(error)}; 
+  }); 
+};
 
-const getImage = (router) => {
-  router.get('/:imageName', (request, response) => {
-    const imageName = request.params.imageName;
-    const imagePath = path.resolve(__dirname, '..', 'img', imageName);
-    response.sendFile(imagePath);  
+
+const getImage = (router, admin) => {
+  router.get('/:imageName', async (request, response, next) => {
+    try {
+      const imageName = request.params.imageName;
+
+      const storage = admin.storage();
+      const bucket = storage.bucket();
+      const file = bucket.file(`images/${imageName}`);
+
+      const [signedUrl] = await file.getSignedUrl({
+        action: 'read',
+        expires: '01-01-2100'
+      });
+
+      response.redirect(signedUrl);
+    } catch (error) {
+      next(error)
+    };
   });
-}
+};
+
 
 const post = (router, model) => {
-    router.post('/', async (request, response, next) => {
-        try {
-          const info = request.body
+  router.post('/', async (request, response, next) => {
+    try {
+      const info = request.body
 
-          const data = new model(info);
-      
-          const savedData = await data.save();
-      
-          const savedAndFormattedData = savedData.toJSON();
-      
-          response.json(savedAndFormattedData);
-        } catch (error) {
+      const data = new model(info);
+  
+      const savedData = await data.save();
+  
+      const savedAndFormattedData = savedData.toJSON();
+  
+      response.json(savedAndFormattedData);
+      } catch (error) {
+        next(error)
+      };
+  });
+};
 
-          next(error);
-        }
-      });
-}
-
-const postWithImage = (router, model) => {
+const postWithImage = (router, model, admin) => {
   router.post('/', upload.single('image'), async (request, response, next) => {
-    try{
+    try {
       const data = new model(request.body);
 
-      data.image = `${config.IMAGES_URL}${request.file.filename}`
+      const bucket = admin.storage().bucket();
+      const fileName = `${Date.now()}_${request.file.originalname}`;
+      const file = bucket.file(`images/${fileName}`);
+      const stream = file.createWriteStream({
+      metadata: {
+          contentType: request.file.mimetype,
+        },
+      });
 
-      const savedData = await data.save()
+      stream.on('error', (error) => {
+        next(error);
+      });
 
-      const savedAndFormatterData = savedData.toJSON()
+      stream.on('finish', async () => {
+        data.image = fileName;
+        const savedData = await data.save();
+        const savedAndFormattedData = savedData.toJSON();
+        response.json(savedAndFormattedData);
+      });
 
-      response.json(savedAndFormatterData)
-    } catch (error){next(error)}
-});
-}
+      stream.end(request.file.buffer);
+    } catch (error) {
+      next(error)
+    };
+  });
+};
 
 const deleteOne = (router, model) => {
   router.delete('/:id', async (request, response, next) => {
   try{
     const data = await model.findByIdAndRemove(request.params.id)
     response.status(204).end
-  } catch(error){next(error)}
-})
-}
+  } catch(error){next(error)
+    };
+  });
+};
 
-const deleteOneWithImage = (router, model) => {
+
+const deleteOneWithImage = (router, model, admin) => {
   router.delete('/:id', async (request, response, next) => {
     try {
       const data = await model.findById(request.params.id);
-  
-      const imagePath = `${config.BACKEND_IMAGE_PATH}${data.image.slice(30)}`;
-      if (fs.existsSync(imagePath)) {
-        fs.unlinkSync(imagePath);
+      if (!data) {
+        return response.status(404).json({ error: 'Documento no encontrado' });
       }
-  
+      const imageName = data.image
+      const file = admin.storage().bucket().file(`images/${imageName}`);
+      await file.delete();
       await model.findByIdAndDelete(data.id);
+
       response.status(204).end();
     } catch (error) {
       next(error);
     }
   });
-}
+};
+
 
 const put = (router, model) =>{
   router.put('/:id', async (request, response, next) => {
@@ -106,6 +136,47 @@ const put = (router, model) =>{
   })
 }
 
+
+const putWhiteImage = (router, model, admin) =>{
+  router.put('/:id', upload.single('image'), async (request, response, next) => {
+ try{
+  const actualData = await model.findById(request.params.id);
+
+  const updateData = request.body
+  
+
+  const imageName = actualData.image
+  const file = admin.storage().bucket().file(`images/${imageName}`);
+  await file.delete();
+
+  const bucket = admin.storage().bucket();
+  const fileName = `${Date.now()}_${request.file.originalname}`;
+  const newFile = bucket.file(`images/${fileName}`);
+  const stream = newFile.createWriteStream({
+  metadata: {
+      contentType: request.file.mimetype,
+    },
+  });
+
+  stream.on('error', (error) => {
+    next(error);
+  });
+
+  stream.on('finish', async () => {
+    const data = await model.findByIdAndUpdate(request.params.id,{ ...updateData, image: fileName }, { new: true })
+    const savedData = await data.save();
+    const savedAndFormattedData = savedData.toJSON();
+    response.json(savedAndFormattedData);
+  });
+
+  stream.end(request.file.buffer);
+
+  }catch(error) {
+    next(error)
+ }
+  })
+}
+
 module.exports = 
 {getAll,
 getOne,
@@ -113,5 +184,6 @@ getImage,
 post,
 deleteOne,
 put,
+putWhiteImage,
 postWithImage,
 deleteOneWithImage}
