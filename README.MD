@@ -7,7 +7,7 @@
 </p>
 
 El siguiente es un backend sensillo el cual brinda a travez de una base de datos de [MongoDB Atlas](https://www.mongodb.com/atlas/database) la informacion necesaria para la parte de frontend.
-A su vez tambien cumple la funcion de almacenar las imagenes
+A su vez tambien cumple la funcion de almacenar las imagenes, lo  cual es reañizado em [Firebase](https://firebase.google.com/)
 ***
 ## Tecnologías
 Para el desarrollo de este backend se ha utilizado: 
